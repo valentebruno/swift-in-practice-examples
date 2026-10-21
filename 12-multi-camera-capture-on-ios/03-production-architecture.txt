@@ -1,0 +1,15 @@
+Single AVCaptureMultiCamSession
+    ↓
+Multiple AVCaptureDeviceInput instances
+    ↓
+Hardware-synchronized AVCaptureConnection
+    ↓
+ISP-level timestamp coherence
+    ↓
+Shared CVMetalTextureCache (unified memory management)
+    ↓
+Single Metal command queue (GPUs aren't parallel across cameras)
+    ↓
+Coordinated thermal + lifecycle management
+    ↓
+Result: <5ms drift, sustainable thermal profile, predictable memory

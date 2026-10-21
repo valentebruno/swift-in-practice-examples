@@ -1,0 +1,6 @@
+AVCaptureOutput
+→ CMSampleBuffer (timing + metadata)
+→ CVPixelBuffer (a memory region, often IOSurface-backed)
+→ [optional] CVMetalTextureCache (zero-copy GPU mapping)
+→ Metal compute
+→ Presentation / Encoding

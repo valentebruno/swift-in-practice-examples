@@ -1,0 +1,45 @@
+MyApp/
+├── App/
+│   ├── MyApp.swift              // @main entry point
+│   └── AppDelegate.swift        // Optional: Only if needed for legacy APIs
+│
+├── Core/
+│   ├── Extensions/
+│   │   ├── String+Validation.swift
+│   │   └── Color+Theme.swift
+│   ├── Utilities/
+│   │   ├── Logger.swift
+│   │   └── DateFormatter+App.swift
+│   └── Constants/
+│       └── AppConstants.swift
+│
+├── Features/
+│   ├── Authentication/
+│   │   ├── Models/
+│   │   │   └── User.swift
+│   │   ├── Views/
+│   │   │   ├── LoginView.swift
+│   │   │   └── SignUpView.swift
+│   │   ├── ViewModels/
+│   │   │   └── LoginViewModel.swift
+│   │   └── Services/
+│   │       └── AuthService.swift
+│   │
+│   ├── Dashboard/
+│   │   └── (same structure)
+│   └── Settings/
+│       └── (same structure)
+│
+├── Networking/
+│   ├── APIClient.swift
+│   ├── APIEndpoint.swift
+│   └── NetworkError.swift
+│
+├── Resources/
+│   ├── Assets.xcassets
+│   ├── Fonts/
+│   └── Localizable.xcstrings      // String catalog (iOS 15+)
+│
+└── Tests/
+    ├── AuthenticationTests/
+    └── NetworkingTests/

@@ -1,0 +1,5 @@
+// LoginView.swift (~100 lines) - Just SwiftUI
+// LoginViewModel.swift (~80 lines) - Business logic & state
+// AuthService.swift (~60 lines) - Networking
+// SecureStorage.swift (~50 lines) - Keychain wrapper
+// AuthCoordinator.swift (~45 lines) - Navigation

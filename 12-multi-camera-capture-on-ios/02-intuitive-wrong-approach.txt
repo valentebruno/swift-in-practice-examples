@@ -1,0 +1,11 @@
+Two AVCaptureSession instances
+    ↓
+Each timestamps frames independently
+    ↓
+Software attempts to align timestamps
+    ↓
+Drift compounds over time
+    ↓
+Resource contention (two IOSurface pools, fragmented memory)
+    ↓
+Result: 18-42ms drift, thermal runaway, memory pressure

@@ -1,0 +1,5 @@
+<key>UIBackgroundModes</key>
+<array>
+    <string>bluetooth-central</string>
+    <!-- Add bluetooth-peripheral if acting as a peripheral -->
+</array>
