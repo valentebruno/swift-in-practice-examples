@@ -1,0 +1,9 @@
+// Example feature structure
+Features/
+├── Checkout
+│   ├── Coordinators/
+│   ├── ViewModels/
+│   └── Views/
+├── Home
+├── Profile
+└── Auth

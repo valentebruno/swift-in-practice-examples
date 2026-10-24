@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #4: Understanding HLS: A Practical Guide for Swift Developers
 // Section: Monitor Quality and Bandwidth
-// https://swiftinpractice.pages.dev/editions/4-understanding-hls-a-practical-guide-for-swift-developers/#monitor-quality-and-bandwidth
+// https://swiftinpractice.com/editions/4-understanding-hls-a-practical-guide-for-swift-developers/#monitor-quality-and-bandwidth
 
 extension VideoViewController {
     private var statusObservation: NSKeyValueObservation?

@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #1: Welcome to Swift in Practice — First Topic: Bluetooth Low Energy (BLE) in Swift
 // Section: 2) Connect, Discover Services & Read a Characteristic
-// https://swiftinpractice.pages.dev/editions/1-bluetooth-low-energy-in-swift/#2-connect-discover-services-read-a-characteristic
+// https://swiftinpractice.com/editions/1-bluetooth-low-energy-in-swift/#2-connect-discover-services-read-a-characteristic
 
 //swift//
 

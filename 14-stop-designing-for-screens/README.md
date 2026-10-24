@@ -2,7 +2,7 @@
 
 > Apple's foldable iPhone Duo is a prompt to design for available space and content relationships instead of specific devices.
 
-**Read the full edition on Swift in Practice:** https://swiftinpractice.pages.dev/editions/14-stop-designing-for-screens/
+**Read the full edition on Swift in Practice:** https://swiftinpractice.com/editions/14-stop-designing-for-screens/
 
 SwiftUI · Share · 24 Sep 2026
 
@@ -15,4 +15,4 @@ surrounding explanation, not a buildable project — the edition explains when a
 
 ---
 
-[← All editions](../README.md) · [Swift in Practice](https://swiftinpractice.pages.dev/) · Code a Brighter Tomorrow.
+[← All editions](../README.md) · [Swift in Practice](https://swiftinpractice.com/) · Code a Brighter Tomorrow.

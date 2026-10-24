@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #7: HLS & Metal: Architectural Clarity for Video Streaming at Scale
 // Section: Introduction
-// https://swiftinpractice.pages.dev/editions/7-hls-and-metal-architectural-clarity-for-video/#introduction
+// https://swiftinpractice.com/editions/7-hls-and-metal-architectural-clarity-for-video/#introduction
 
 import MetalKit
 import AVFoundation

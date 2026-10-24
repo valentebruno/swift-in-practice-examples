@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #11: Building Real-Time Computer Vision Pipelines in Swift
 // Section: Phone calls. Control Center. Picture-in-Picture. FaceTime. Notification Center. Screen recording.
-// https://swiftinpractice.pages.dev/editions/11-building-real-time-computer-vision-pipelines-in-swift/#phone-calls-control-center-picture-in-picture-facetime-notif
+// https://swiftinpractice.com/editions/11-building-real-time-computer-vision-pipelines-in-swift/#phone-calls-control-center-picture-in-picture-facetime-notif
 
 private var captureSessionRunningObserver: NSKeyValueObservation?
 

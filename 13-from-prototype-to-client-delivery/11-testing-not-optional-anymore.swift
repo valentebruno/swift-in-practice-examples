@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #13: From Prototype to Client Delivery: Structuring Swift Projects That Don’t Break
 // Section: Testing: Not Optional Anymore
-// https://swiftinpractice.pages.dev/editions/13-from-prototype-to-client-delivery/#testing-not-optional-anymore
+// https://swiftinpractice.com/editions/13-from-prototype-to-client-delivery/#testing-not-optional-anymore
 
 import Testing  // Swift Testing framework (better than XCTest)
 

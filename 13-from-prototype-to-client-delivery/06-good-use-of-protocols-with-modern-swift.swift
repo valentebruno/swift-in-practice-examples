@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #13: From Prototype to Client Delivery: Structuring Swift Projects That Don’t Break
 // Section: Good use of protocols (with modern Swift):
-// https://swiftinpractice.pages.dev/editions/13-from-prototype-to-client-delivery/#good-use-of-protocols-with-modern-swift
+// https://swiftinpractice.com/editions/13-from-prototype-to-client-delivery/#good-use-of-protocols-with-modern-swift
 
 // Protocol with associated types for better type safety
 protocol DataStorage: Sendable {

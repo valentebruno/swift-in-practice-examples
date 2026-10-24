@@ -1,0 +1,6 @@
+// Monitor error log
+player.currentItem?.errorLog()?.events.forEach { event in
+    print("Error: \(event.errorComment ?? "Unknown")")
+    print("Status: \(event.errorStatusCode)")
+    print("Domain: \(event.errorDomain ?? "Unknown")")
+}

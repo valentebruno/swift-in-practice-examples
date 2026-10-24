@@ -1,0 +1,8 @@
+// ❌ Wrong: Business logic in Coordinator
+coordinator.navigate { user in
+    if user.balance > amount {
+        path.append(.checkout)
+    } else {
+        path.append(.insufficientFunds)
+    }
+}

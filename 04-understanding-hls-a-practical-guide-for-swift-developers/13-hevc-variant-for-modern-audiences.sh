@@ -1,6 +1,6 @@
 # Swift in Practice — Edition #4: Understanding HLS: A Practical Guide for Swift Developers
 # Section: HEVC Variant (for modern audiences) - CORRECTED
-# https://swiftinpractice.pages.dev/editions/4-understanding-hls-a-practical-guide-for-swift-developers/#hevc-variant-for-modern-audiences-corrected
+# https://swiftinpractice.com/editions/4-understanding-hls-a-practical-guide-for-swift-developers/#hevc-variant-for-modern-audiences-corrected
 
 # Legacy H.264 with MPEG-TS (for very old devices)
 ffmpeg -i input.mp4 \

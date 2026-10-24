@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #2: Swift Concurrency: What I Wish Someone Had Told Me
 // Section: 3. Actor Reentrancy: The Bug That Looks Like Clean Code
-// https://swiftinpractice.pages.dev/editions/2-swift-concurrency-what-i-wish-someone-had-told-me/#3-actor-reentrancy-the-bug-that-looks-like-clean-code
+// https://swiftinpractice.com/editions/2-swift-concurrency-what-i-wish-someone-had-told-me/#3-actor-reentrancy-the-bug-that-looks-like-clean-code
 
 // My original attempt: the infamous "check twice" hack
 actor DataManager {

@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #1: Welcome to Swift in Practice — First Topic: Bluetooth Low Energy (BLE) in Swift
 // Section: 3) Peripheral (Advertising) — E.g., for In-Store Promotions or Beacons
-// https://swiftinpractice.pages.dev/editions/1-bluetooth-low-energy-in-swift/#3-peripheral-advertising-e-g-for-in-store-promotions-or-beac
+// https://swiftinpractice.com/editions/1-bluetooth-low-energy-in-swift/#3-peripheral-advertising-e-g-for-in-store-promotions-or-beac
 
 //swift//
 import CoreBluetooth

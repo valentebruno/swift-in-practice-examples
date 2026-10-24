@@ -1,0 +1,3 @@
+# HEVC codec strings
+"hev1.1.2.L93.90"   # Main 8-bit, typical
+"hev1.2.4.L150.90"  # Main 10, HDR capable

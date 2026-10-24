@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #11: Building Real-Time Computer Vision Pipelines in Swift
 // Section: 6️⃣ Metal: Throughput Over Graphics
-// https://swiftinpractice.pages.dev/editions/11-building-real-time-computer-vision-pipelines-in-swift/#6-metal-throughput-over-graphics
+// https://swiftinpractice.com/editions/11-building-real-time-computer-vision-pipelines-in-swift/#6-metal-throughput-over-graphics
 
 guard let commandBuffer = commandQueue.makeCommandBuffer() else {
     return

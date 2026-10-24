@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #12: Multi-Camera Capture on iOS: The Architecture No One Tells You About
 // Section: Sample Telemetry Implementation
-// https://swiftinpractice.pages.dev/editions/12-multi-camera-capture-on-ios/#sample-telemetry-implementation
+// https://swiftinpractice.com/editions/12-multi-camera-capture-on-ios/#sample-telemetry-implementation
 
 struct CameraMetrics {
     var sessionStartTime: Date

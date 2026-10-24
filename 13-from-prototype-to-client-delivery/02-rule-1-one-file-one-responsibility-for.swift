@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #13: From Prototype to Client Delivery: Structuring Swift Projects That Don’t Break
 // Section: Rule 1: One File, One Responsibility (For Real This Time)
-// https://swiftinpractice.pages.dev/editions/13-from-prototype-to-client-delivery/#rule-1-one-file-one-responsibility-for-real-this-time
+// https://swiftinpractice.com/editions/13-from-prototype-to-client-delivery/#rule-1-one-file-one-responsibility-for-real-this-time
 
 // LoginViewController.swift - 650 lines of pain
 

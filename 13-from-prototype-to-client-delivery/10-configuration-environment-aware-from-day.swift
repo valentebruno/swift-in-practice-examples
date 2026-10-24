@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #13: From Prototype to Client Delivery: Structuring Swift Projects That Don’t Break
 // Section: Configuration: Environment-Aware From Day One
-// https://swiftinpractice.pages.dev/editions/13-from-prototype-to-client-delivery/#configuration-environment-aware-from-day-one
+// https://swiftinpractice.com/editions/13-from-prototype-to-client-delivery/#configuration-environment-aware-from-day-one
 
 enum Environment: Sendable {
     case development

@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #13: From Prototype to Client Delivery: Structuring Swift Projects That Don’t Break
 // Section: Documentation That Actually Helps Future You
-// https://swiftinpractice.pages.dev/editions/13-from-prototype-to-client-delivery/#documentation-that-actually-helps-future-you
+// https://swiftinpractice.com/editions/13-from-prototype-to-client-delivery/#documentation-that-actually-helps-future-you
 
 // Using white background instead of system background because
 // QR code scanner needs high contrast to work reliably in both modes

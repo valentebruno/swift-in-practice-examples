@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #12: Multi-Camera Capture on iOS: The Architecture No One Tells You About
 // Section: The Solution: Trust Nothing
-// https://swiftinpractice.pages.dev/editions/12-multi-camera-capture-on-ios/#the-solution-trust-nothing
+// https://swiftinpractice.com/editions/12-multi-camera-capture-on-ios/#the-solution-trust-nothing
 
 extension MultiCameraManager {
 

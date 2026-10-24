@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #11: Building Real-Time Computer Vision Pipelines in Swift
 // Section: Memory Leaks via Retain Cycles
-// https://swiftinpractice.pages.dev/editions/11-building-real-time-computer-vision-pipelines-in-swift/#memory-leaks-via-retain-cycles
+// https://swiftinpractice.com/editions/11-building-real-time-computer-vision-pipelines-in-swift/#memory-leaks-via-retain-cycles
 
 // WRONG - Common retain cycle
 func captureOutput(_ output: AVCaptureOutput,

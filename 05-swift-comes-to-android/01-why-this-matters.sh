@@ -1,6 +1,6 @@
-// Swift in Practice — Edition #5: Swift Comes to Android — A New Era for Cross-Platform Development
-// Section: Why this matters
-// https://swiftinpractice.pages.dev/editions/5-swift-comes-to-android/#why-this-matters
+# Swift in Practice — Edition #5: Swift Comes to Android — A New Era for Cross-Platform Development
+# Section: Why this matters
+# https://swiftinpractice.com/editions/5-swift-comes-to-android/#why-this-matters
 
 # Install the toolchain manager
 curl -L https://swift-server.github.io/swiftly/swiftly-install.sh | bash

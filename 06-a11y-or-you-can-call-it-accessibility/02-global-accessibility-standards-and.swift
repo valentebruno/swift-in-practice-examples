@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #6: A11y, or You Can Call It Accessibility
 // Section: Global Accessibility Standards and Regulations
-// https://swiftinpractice.pages.dev/editions/6-a11y-or-you-can-call-it-accessibility/#global-accessibility-standards-and-regulations
+// https://swiftinpractice.com/editions/6-a11y-or-you-can-call-it-accessibility/#global-accessibility-standards-and-regulations
 
 import UIKit
 

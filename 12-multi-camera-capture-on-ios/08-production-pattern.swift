@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #12: Multi-Camera Capture on iOS: The Architecture No One Tells You About
 // Section: Production Pattern
-// https://swiftinpractice.pages.dev/editions/12-multi-camera-capture-on-ios/#production-pattern
+// https://swiftinpractice.com/editions/12-multi-camera-capture-on-ios/#production-pattern
 
 @MainActor
 final class ThermalManager {

@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #12: Multi-Camera Capture on iOS: The Architecture No One Tells You About
 // Section: The Setup (GCD-Based for Performance)
-// https://swiftinpractice.pages.dev/editions/12-multi-camera-capture-on-ios/#the-setup-gcd-based-for-performance
+// https://swiftinpractice.com/editions/12-multi-camera-capture-on-ios/#the-setup-gcd-based-for-performance
 
 final class MultiCameraManager: NSObject {
 

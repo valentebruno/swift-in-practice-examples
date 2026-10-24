@@ -2,7 +2,7 @@
 
 > What the first official Swift Android SDK previews make possible today — and what remains experimental for teams sharing code across platforms.
 
-**Read the full edition on Swift in Practice:** https://swiftinpractice.pages.dev/editions/5-swift-comes-to-android/
+**Read the full edition on Swift in Practice:** https://swiftinpractice.com/editions/5-swift-comes-to-android/
 
 Platforms & Devices · Share · 25 Oct 2025
 
@@ -10,12 +10,12 @@ Platforms & Devices · Share · 25 Oct 2025
 
 | File | Language | Section |
 |---|---|---|
-| [`01-why-this-matters.swift`](01-why-this-matters.swift) | Swift | [Why this matters](https://swiftinpractice.pages.dev/editions/5-swift-comes-to-android/#why-this-matters) |
-| [`02-option-2-skip-tools-the-full-stack.swift`](02-option-2-skip-tools-the-full-stack.swift) | Swift | [Option 2: Skip.tools (The Full-Stack Solution)](https://swiftinpractice.pages.dev/editions/5-swift-comes-to-android/#option-2-skip-tools-the-full-stack-solution) |
+| [`01-why-this-matters.sh`](01-why-this-matters.sh) | Shell | [Why this matters](https://swiftinpractice.com/editions/5-swift-comes-to-android/#why-this-matters) |
+| [`02-option-2-skip-tools-the-full-stack.sh`](02-option-2-skip-tools-the-full-stack.sh) | Shell | [Option 2: Skip.tools (The Full-Stack Solution)](https://swiftinpractice.com/editions/5-swift-comes-to-android/#option-2-skip-tools-the-full-stack-solution) |
 
 These are the snippets exactly as they appear in the edition. They are excerpts that rely on the
 surrounding explanation, not a buildable project — the edition explains when and why to use each one.
 
 ---
 
-[← All editions](../README.md) · [Swift in Practice](https://swiftinpractice.pages.dev/) · Code a Brighter Tomorrow.
+[← All editions](../README.md) · [Swift in Practice](https://swiftinpractice.com/) · Code a Brighter Tomorrow.

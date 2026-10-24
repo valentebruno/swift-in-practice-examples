@@ -1,0 +1,3 @@
+// Improve startup time
+player.automaticallyWaitsToMinimizeStalling = false
+player.currentItem?.preferredForwardBufferDuration = 30 // seconds

@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #12: Multi-Camera Capture on iOS: The Architecture No One Tells You About
 // Section: Frame Processing: The Sendable-Safe Pattern
-// https://swiftinpractice.pages.dev/editions/12-multi-camera-capture-on-ios/#frame-processing-the-sendable-safe-pattern
+// https://swiftinpractice.com/editions/12-multi-camera-capture-on-ios/#frame-processing-the-sendable-safe-pattern
 
 // MARK: - Frame Wrapper (Swift 6 Concurrency-Safe)
 

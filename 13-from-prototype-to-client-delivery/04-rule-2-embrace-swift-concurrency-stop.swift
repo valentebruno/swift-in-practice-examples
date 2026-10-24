@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #13: From Prototype to Client Delivery: Structuring Swift Projects That Don’t Break
 // Section: Rule 2: Embrace Swift Concurrency (Stop Fighting It)
-// https://swiftinpractice.pages.dev/editions/13-from-prototype-to-client-delivery/#rule-2-embrace-swift-concurrency-stop-fighting-it
+// https://swiftinpractice.com/editions/13-from-prototype-to-client-delivery/#rule-2-embrace-swift-concurrency-stop-fighting-it
 
 class NetworkManager {
     static let shared = NetworkManager()

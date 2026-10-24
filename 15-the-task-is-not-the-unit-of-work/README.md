@@ -2,7 +2,7 @@
 
 > Swift's concurrency checks make code thread-safe, but who owns an operation and how long it lives are architectural decisions — not something to inherit from a view's lifecycle.
 
-**Read the full edition on Swift in Practice:** https://swiftinpractice.pages.dev/editions/15-the-task-is-not-the-unit-of-work/
+**Read the full edition on Swift in Practice:** https://swiftinpractice.com/editions/15-the-task-is-not-the-unit-of-work/
 
 Concurrency · Learn · 6 Oct 2026
 
@@ -15,4 +15,4 @@ surrounding explanation, not a buildable project — the edition explains when a
 
 ---
 
-[← All editions](../README.md) · [Swift in Practice](https://swiftinpractice.pages.dev/) · Code a Brighter Tomorrow.
+[← All editions](../README.md) · [Swift in Practice](https://swiftinpractice.com/) · Code a Brighter Tomorrow.

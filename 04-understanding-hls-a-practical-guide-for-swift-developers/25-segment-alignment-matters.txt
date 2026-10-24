@@ -1,0 +1,2 @@
+# Force keyframes every 4 seconds (120 frames at 30fps)
+-g 120 -keyint_min 120 -sc_threshold 0

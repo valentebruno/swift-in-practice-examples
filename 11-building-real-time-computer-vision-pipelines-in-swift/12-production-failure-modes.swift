@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #11: Building Real-Time Computer Vision Pipelines in Swift
 // Section: 8️⃣ Production Failure Modes
-// https://swiftinpractice.pages.dev/editions/11-building-real-time-computer-vision-pipelines-in-swift/#8-production-failure-modes
+// https://swiftinpractice.com/editions/11-building-real-time-computer-vision-pipelines-in-swift/#8-production-failure-modes
 
 NotificationCenter.default.addObserver(
     forName: ProcessInfo.thermalStateDidChangeNotification,

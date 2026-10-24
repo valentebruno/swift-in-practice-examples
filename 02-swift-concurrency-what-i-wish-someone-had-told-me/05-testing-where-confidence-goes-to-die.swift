@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #2: Swift Concurrency: What I Wish Someone Had Told Me
 // Section: 4. Testing: Where Confidence Goes to Die
-// https://swiftinpractice.pages.dev/editions/2-swift-concurrency-what-i-wish-someone-had-told-me/#4-testing-where-confidence-goes-to-die
+// https://swiftinpractice.com/editions/2-swift-concurrency-what-i-wish-someone-had-told-me/#4-testing-where-confidence-goes-to-die
 
 func testConcurrentAccess() async throws {
     let manager = DataManager()

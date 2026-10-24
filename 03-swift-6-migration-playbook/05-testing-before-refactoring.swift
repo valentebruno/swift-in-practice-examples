@@ -1,6 +1,6 @@
 // Swift in Practice — Edition #3: Swift 6 Migration Playbook: How We Moved Three Production Apps Without Halting Feature Delivery
 // Section: 2. Testing Before Refactoring
-// https://swiftinpractice.pages.dev/editions/3-swift-6-migration-playbook/#2-testing-before-refactoring
+// https://swiftinpractice.com/editions/3-swift-6-migration-playbook/#2-testing-before-refactoring
 
 // MARK: - Usage Example
 func example() async {

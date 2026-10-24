@@ -2,7 +2,7 @@
 
 > Find the real blocker before commissioning a redesign: diagnose architecture, performance, and integration constraints first.
 
-**Read the full edition on Swift in Practice:** https://swiftinpractice.pages.dev/editions/9-when-your-ios-app-is-stuck-how-to-unblock-it-fast/
+**Read the full edition on Swift in Practice:** https://swiftinpractice.com/editions/9-when-your-ios-app-is-stuck-how-to-unblock-it-fast/
 
 Architecture · Share · 16 Jan 2026
 
@@ -15,4 +15,4 @@ surrounding explanation, not a buildable project — the edition explains when a
 
 ---
 
-[← All editions](../README.md) · [Swift in Practice](https://swiftinpractice.pages.dev/) · Code a Brighter Tomorrow.
+[← All editions](../README.md) · [Swift in Practice](https://swiftinpractice.com/) · Code a Brighter Tomorrow.
