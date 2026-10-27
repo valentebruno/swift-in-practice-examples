@@ -20,7 +20,7 @@ back to the full edition. Read the edition for the context — the trade-offs ma
 | #11 | [Building Real-Time Computer Vision Pipelines in Swift](11-building-real-time-computer-vision-pipelines-in-swift/) | Performance | 15 | [Read](https://swiftinpractice.com/editions/11-building-real-time-computer-vision-pipelines-in-swift/) |
 | #12 | [Multi-Camera Capture on iOS: The Architecture No One Tells You About](12-multi-camera-capture-on-ios/) | Media & Camera | 11 | [Read](https://swiftinpractice.com/editions/12-multi-camera-capture-on-ios/) |
 | #13 | [From Prototype to Client Delivery: Structuring Swift Projects That Don’t Break](13-from-prototype-to-client-delivery/) | Architecture | 14 | [Read](https://swiftinpractice.com/editions/13-from-prototype-to-client-delivery/) |
-| #14 | [Stop Designing for Screens](14-stop-designing-for-screens/) | SwiftUI | in images | [Read](https://swiftinpractice.com/editions/14-stop-designing-for-screens/) |
+| #14 | [Stop Designing for Screens](14-stop-designing-for-screens/) | SwiftUI | 15 | [Read](https://swiftinpractice.com/editions/14-stop-designing-for-screens/) |
 | #15 | [The Task Is Not the Unit of Work — Ownership, Isolation, and Cancellation Beyond async/await](15-the-task-is-not-the-unit-of-work/) | Concurrency | in images | [Read](https://swiftinpractice.com/editions/15-the-task-is-not-the-unit-of-work/) |
 | #16 | [The Upload Finished. Did the Work?](16-the-upload-finished-did-the-work/) | Architecture | 7 | [Read](https://swiftinpractice.com/editions/16-the-upload-finished-did-the-work/) |
 

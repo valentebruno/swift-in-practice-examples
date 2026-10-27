@@ -11,7 +11,7 @@ Architecture · Learn · 23 Jan 2026
 | File | Language | Section |
 |---|---|---|
 | [`01-the-god-coordinator.swift`](01-the-god-coordinator.swift) | Swift | [The God Coordinator](https://swiftinpractice.com/editions/10-why-mvvm-c-with-coordinators-does-scale/#the-god-coordinator) |
-| [`02-coordinators-owning-business-logic.txt`](02-coordinators-owning-business-logic.txt) | Text | [Coordinators owning business logic](https://swiftinpractice.com/editions/10-why-mvvm-c-with-coordinators-does-scale/#coordinators-owning-business-logic) |
+| [`02-coordinators-owning-business-logic.swift`](02-coordinators-owning-business-logic.swift) | Swift | [Coordinators owning business logic](https://swiftinpractice.com/editions/10-why-mvvm-c-with-coordinators-does-scale/#coordinators-owning-business-logic) |
 | [`03-coordinators-owning-business-logic.swift`](03-coordinators-owning-business-logic.swift) | Swift | [Coordinators owning business logic](https://swiftinpractice.com/editions/10-why-mvvm-c-with-coordinators-does-scale/#coordinators-owning-business-logic) |
 | [`04-tight-coupling-through-concrete.swift`](04-tight-coupling-through-concrete.swift) | Swift | [Tight coupling through concrete dependencies](https://swiftinpractice.com/editions/10-why-mvvm-c-with-coordinators-does-scale/#tight-coupling-through-concrete-dependencies) |
 | [`05-tight-coupling-through-concrete.swift`](05-tight-coupling-through-concrete.swift) | Swift | [Tight coupling through concrete dependencies](https://swiftinpractice.com/editions/10-why-mvvm-c-with-coordinators-does-scale/#tight-coupling-through-concrete-dependencies) |
