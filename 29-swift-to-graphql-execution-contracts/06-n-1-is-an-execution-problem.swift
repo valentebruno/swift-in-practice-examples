@@ -15,6 +15,7 @@ actor AuthorLoader {
     private let tenantID: UUID
     private let fetch: BatchFetch
     private var waiting: [String: [CheckedContinuation<AuthorRecord?, any Error>]] = [:]
+    private var inFlight: [String: [CheckedContinuation<AuthorRecord?, any Error>]] = [:]
     private var resolved: [String: AuthorRecord?] = [:]
     private var flushScheduled = false
 
@@ -27,6 +28,10 @@ actor AuthorLoader {
         if let known = resolved[id] { return known }
 
         return try await withCheckedThrowingContinuation { continuation in
+            if inFlight[id] != nil {
+                inFlight[id]?.append(continuation)
+                return
+            }
             waiting[id, default: []].append(continuation)
             if !flushScheduled {
                 flushScheduled = true
@@ -39,17 +44,22 @@ actor AuthorLoader {
         await Task.yield()
         let batch = waiting
         waiting = [:]
+        for (id, continuations) in batch {
+            inFlight[id] = continuations
+        }
         flushScheduled = false
 
         do {
             let found = try await fetch(tenantID, Array(batch.keys))
-            for (id, continuations) in batch {
+            for id in batch.keys {
                 let record = found[id]
+                let continuations = inFlight.removeValue(forKey: id) ?? []
                 resolved[id] = .some(record)
                 continuations.forEach { $0.resume(returning: record) }
             }
         } catch {
-            for continuations in batch.values {
+            for id in batch.keys {
+                let continuations = inFlight.removeValue(forKey: id) ?? []
                 continuations.forEach { $0.resume(throwing: error) }
             }
         }

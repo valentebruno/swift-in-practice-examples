@@ -6,14 +6,15 @@ func testConcurrentAccess() async throws {
     let manager = DataManager()
 
     // Hammer it with 100 concurrent requests
-    await withThrowingTaskGroup(of: Data.self) { group in
+    try await withThrowingTaskGroup(of: Data.self) { group in
         for _ in 0..<100 {
             group.addTask {
                 try await manager.getData(for: "test")
             }
         }
-    }
 
-    // If this doesn't crash, you're probably okay
-    // (but no promises)
+        var completed = 0
+        for try await _ in group { completed += 1 }
+        precondition(completed == 100)
+    }
 }

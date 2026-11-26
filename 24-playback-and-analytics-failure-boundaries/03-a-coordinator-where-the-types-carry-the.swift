@@ -9,11 +9,14 @@ protocol EntitlementChecking: Sendable {
 }
 
 protocol MediaPreparing: Sendable {
-    func prepare(trackID: String) async throws
+    /// Prepare resources for this session without replacing the active player item.
+    func prepare(trackID: String, for session: PlaybackSessionID) async throws
 }
 
+@MainActor
 protocol EventRecording: Sendable {
-    func record(_ event: PlaybackEvent) async
+    /// Enqueue locally with bounded work. Delivery happens elsewhere.
+    func enqueue(_ event: PlaybackEvent)
 }
 
 @MainActor
@@ -41,7 +44,7 @@ final class PlaybackCoordinator {
     func play(trackID: String) async {
         let session = PlaybackSessionID(rawValue: UUID())
         state = .preparing(session)
-        await emit(.requested, session: session, trackID: trackID)
+        emit(.requested, session: session, trackID: trackID)
 
         do {
             guard try await entitlements.canPlay(
@@ -52,7 +55,8 @@ final class PlaybackCoordinator {
                 ))
                 return
             }
-            try await media.prepare(trackID: trackID)
+            guard state.sessionID == session else { return }
+            try await media.prepare(trackID: trackID, for: session)
         } catch {
             finish(session, with: .failed(
                 session, message: "We couldn't load this track."
@@ -62,7 +66,7 @@ final class PlaybackCoordinator {
 
         guard state.sessionID == session else { return }
         state = .playing(session)
-        await emit(.started, session: session, trackID: trackID)
+        emit(.started, session: session, trackID: trackID)
     }
 
     private func finish(_ session: PlaybackSessionID, with newState: PlaybackState) {
@@ -74,8 +78,8 @@ final class PlaybackCoordinator {
         _ kind: PlaybackEvent.Kind,
         session: PlaybackSessionID,
         trackID: String
-    ) async {
-        await events.record(PlaybackEvent(
+    ) {
+        events.enqueue(PlaybackEvent(
             id: UUID(), accountID: accountID, sessionID: session,
             trackID: trackID, kind: kind, observedAt: Date()
         ))

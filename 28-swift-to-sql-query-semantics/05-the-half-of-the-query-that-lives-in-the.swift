@@ -20,6 +20,7 @@ final class FeedModel {
     private let fetcher: any ArticleFeedFetching
     private var scope: FeedScope
     private var cursor: String?
+    private(set) var loadError: (any Error)?
     private var generation = 0
     private var isLoading = false
 
@@ -30,18 +31,24 @@ final class FeedModel {
 
     func switchScope(to newScope: FeedScope) {
         guard newScope != scope else { return }
-        generation += 1
         scope = newScope
+        restart()
+    }
+
+    func restart() {
+        generation += 1
         cursor = nil
         articles = []
         reachedEnd = false
         needsRestart = false
+        loadError = nil
         isLoading = false
     }
 
     func loadNextPage() async {
-        guard !isLoading, !reachedEnd else { return }
+        guard !isLoading, !reachedEnd, !needsRestart else { return }
         isLoading = true
+        loadError = nil
         let requested = generation
 
         do {
@@ -59,7 +66,14 @@ final class FeedModel {
             reachedEnd = page.nextCursor == nil
         } catch {
             guard requested == generation else { return }
-            needsRestart = true
+            if let cursorError = error as? CursorError {
+                switch cursorError {
+                case .malformed, .tampered, .wrongScope:
+                    needsRestart = true
+                }
+            } else if !(error is CancellationError) {
+                loadError = error
+            }
         }
         isLoading = false
     }

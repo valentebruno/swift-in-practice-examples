@@ -4,7 +4,7 @@
 
 import Observation
 
-struct Review: Identifiable, Sendable {
+struct Review: Identifiable, Equatable, Sendable {
     let id: UUID
     let videoURL: URL
     var playhead: Duration

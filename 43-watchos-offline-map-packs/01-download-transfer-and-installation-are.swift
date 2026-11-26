@@ -16,6 +16,7 @@ enum MapPackError: Error {
     case badManifest
     case wrongSize
     case wrongDigest
+    case wrongIdentity
 }
 
 func verifyMapPack(_ url: URL, against manifest: MapPackManifest) throws {

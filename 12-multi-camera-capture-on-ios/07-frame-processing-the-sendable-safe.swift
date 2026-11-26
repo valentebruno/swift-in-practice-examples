@@ -46,38 +46,8 @@ extension MultiCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
             position: position
         )
 
-        // Track frame drift (this is how we measured the TestFlight data)
-        trackFrameDrift(frame)
-
         // Process frame (Metal rendering, recording, etc.)
         processFrame(frame)
-    }
-
-    // MARK: - Frame Drift Tracking
-
-    private var lastBackTimestamp: CMTime?
-    private var lastFrontTimestamp: CMTime?
-
-    private func trackFrameDrift(_ frame: CameraFrame) {
-        switch frame.position {
-        case .back:
-            lastBackTimestamp = frame.timestamp
-        case .front:
-            lastFrontTimestamp = frame.timestamp
-        default:
-            break
-        }
-
-        // Calculate drift when we have both timestamps
-        if let backTime = lastBackTimestamp,
-           let frontTime = lastFrontTimestamp {
-            let drift = abs(backTime.seconds - frontTime.seconds)
-
-            if drift > 0.005 { // 5ms threshold
-                logger.warning("Frame drift: \(drift * 1000)ms")
-                metrics.maxFrameDrift = max(metrics.maxFrameDrift, drift)
-            }
-        }
     }
 
     // MARK: - Frame Processing

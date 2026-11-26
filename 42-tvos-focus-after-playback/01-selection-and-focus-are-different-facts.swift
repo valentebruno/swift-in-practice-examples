@@ -23,6 +23,8 @@ struct VideoShelf: View {
     }
 
     var body: some View {
+        let targetID = preferredID
+
         ScrollViewReader { proxy in
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 28) {
@@ -32,7 +34,7 @@ struct VideoShelf: View {
                             playing = item
                         }
                         .id(item.id)
-                        .prefersDefaultFocus(item.id == preferredID, in: shelfFocus)
+                        .prefersDefaultFocus(item.id == targetID, in: shelfFocus)
                     }
                 }
             }

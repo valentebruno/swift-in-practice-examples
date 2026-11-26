@@ -37,7 +37,7 @@ func offlineShowsLastKnownFeed() async throws {
 @Test("Offline with nothing cached, the reader gets a recoverable error")
 func offlineWithoutCacheThrows() async {
     let loader = FeedLoader(api: OfflineAPI(), cached: nil)
-    await #expect(throws: URLError.self) { try await loader.load() }
+    await #expect(throws: URLError(.notConnectedToInternet)) { try await loader.load() }
 }
 
 @Test("An empty feed is a result, not a failure")

@@ -2,7 +2,7 @@
 // Section: ArrangementView makes composition explicit
 // https://swiftinpractice.com/editions/14-stop-designing-for-screens/#arrangementview-makes-composition-explicit
 
-struct Review: Identifiable, Sendable {
+struct Review: Identifiable, Equatable, Sendable {
     let id: UUID
     let videoURL: URL
     var notes: String

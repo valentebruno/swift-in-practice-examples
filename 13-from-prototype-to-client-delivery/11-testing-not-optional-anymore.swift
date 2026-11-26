@@ -2,7 +2,7 @@
 // Section: Testing: Not Optional Anymore
 // https://swiftinpractice.com/editions/13-from-prototype-to-client-delivery/#testing-not-optional-anymore
 
-import Testing  // Swift Testing framework (better than XCTest)
+import Testing
 
 // Protocol for your service
 protocol AuthServiceProtocol: Sendable {
@@ -48,17 +48,16 @@ struct LoginViewModelTests {
     @Test("Loading state is managed correctly")
     func loadingState() async throws {
         // Given
-        let mockService = SlowMockAuthService()
+        let mockService = ControlledAuthService()
         let viewModel = LoginViewModel(authService: mockService)
 
         // When
         async let loginTask: Void = viewModel.login(email: "test@example.com", password: "password")
 
-        // Then - should be loading
-        try await Task.sleep(for: .milliseconds(50))
+        await mockService.waitUntilRequested()
         #expect(viewModel.isLoading)
 
-        // Wait for completion
+        await mockService.release()
         await loginTask
         #expect(!viewModel.isLoading)
     }
@@ -80,9 +79,26 @@ actor MockAuthService: AuthServiceProtocol {
     }
 }
 
-actor SlowMockAuthService: AuthServiceProtocol {
+actor ControlledAuthService: AuthServiceProtocol {
+    private var response: CheckedContinuation<Void, Never>?
+    private var waiting: CheckedContinuation<Void, Never>?
+
     func login(email: String, password: String) async throws -> User {
-        try await Task.sleep(for: .milliseconds(100))
+        await withCheckedContinuation { continuation in
+            response = continuation
+            waiting?.resume()
+            waiting = nil
+        }
         return User(id: "123", email: email, name: "Test User")
+    }
+
+    func waitUntilRequested() async {
+        if response != nil { return }
+        await withCheckedContinuation { waiting = $0 }
+    }
+
+    func release() {
+        response?.resume()
+        response = nil
     }
 }

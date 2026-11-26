@@ -13,6 +13,7 @@ final class ReadingViewController: UIViewController {
         view.backgroundColor = .systemBackground
 
         actionButton.setTitle("Continue reading", for: .normal)
+        actionButton.titleLabel?.font = .preferredFont(forTextStyle: .body)
         actionButton.titleLabel?.adjustsFontForContentSizeCategory = true
         actionButton.titleLabel?.numberOfLines = 0
         actionButton.translatesAutoresizingMaskIntoConstraints = false

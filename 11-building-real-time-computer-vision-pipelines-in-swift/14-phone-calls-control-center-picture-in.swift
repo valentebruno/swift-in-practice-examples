@@ -9,7 +9,7 @@ func submitFrame() {
         return
     }
 
-    gpuSemaphore.wait()
+    guard gpuSemaphore.wait(timeout: .now()) == .success else { return }
 
     commandBuffer.addCompletedHandler { [weak self] _ in
         self?.gpuSemaphore.signal()

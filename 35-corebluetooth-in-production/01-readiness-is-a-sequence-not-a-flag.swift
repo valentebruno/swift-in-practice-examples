@@ -29,6 +29,7 @@ enum LinkEvent: Sendable {
     case radioReset
     case connectRequested(attempt: UUID, peripheral: UUID)
     case connected(peripheral: UUID)
+    case connectionFailed(peripheral: UUID)
     case subscribed(peripheral: UUID)
     case sample(peripheral: UUID, Reading<Double>)
     case connectDeadlinePassed(attempt: UUID)
@@ -46,6 +47,9 @@ func reduce(_ phase: LinkPhase, _ event: LinkEvent) -> LinkPhase {
         return .connecting(attempt: attempt, peripheral: id)
     case let (.connecting(_, expected), .connected(id)) where id == expected:
         return .preparing(peripheral: id)
+    case let (.connecting(_, expected), .connectionFailed(id)) where id == expected,
+         let (.connecting(_, expected), .disconnected(id)) where id == expected:
+        return .unavailable(reason: "Could not connect to sensor", last: nil)
     case let (.preparing(expected), .subscribed(id)) where id == expected:
         return .streaming(peripheral: id, last: nil)
     case let (.streaming(expected, _), .sample(id, reading)) where id == expected:

@@ -36,6 +36,7 @@ final class SpatialCoordinator {
             )
 
             guard case .open = presentation else {
+                if desiredPlaceID != target { continue }
                 desiredPlaceID = nil
                 return
             }

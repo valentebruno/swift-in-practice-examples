@@ -5,13 +5,20 @@
 import MetalKit
 import AVFoundation
 
-final class VideoFilterProcessor: NSObject {
+final class VideoFilterProcessor {
     private let metalDevice: MTLDevice
     private let commandQueue: MTLCommandQueue
     private let renderPipelineState: MTLRenderPipelineState
     private let textureCache: CVMetalTextureCache?
-    private let processingQueue = DispatchQueue(label: "com.swiftinpractice.metal")
-    private var isProcessing = false
+    private let gpuSlot = DispatchSemaphore(value: 1)
+
+    // Hold input resources until completion. The callback is the only
+    // CPU reader of output, after Metal finishes writing it.
+    private struct FrameResources: @unchecked Sendable {
+        let buffer: CVPixelBuffer
+        let inputTexture: CVMetalTexture
+        let outputTexture: any MTLTexture
+    }
 
     init?() {
         guard let device = MTLCreateSystemDefaultDevice(),
@@ -39,66 +46,80 @@ final class VideoFilterProcessor: NSObject {
             print("⚠️ Render pipeline creation failed: \(error)")
             return nil
         }
-        super.init()
     }
 
-    func processFrame(_ pixelBuffer: CVPixelBuffer, completion: @escaping (CVPixelBuffer?) -> Void) {
-        guard !isProcessing else { completion(nil); return }
-
-        processingQueue.async { [weak self] in
-            guard let self = self else { return }
-            self.isProcessing = true
-            defer { self.isProcessing = false }
-
-            guard let sourceTexture = self.textureFromPixelBuffer(pixelBuffer),
-                  let commandBuffer = self.commandQueue.makeCommandBuffer()
-            else { return completion(nil) }
-
-            let width = CVPixelBufferGetWidth(pixelBuffer)
-            let height = CVPixelBufferGetHeight(pixelBuffer)
-
-            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: width, height: height, mipmapped: false)
-            descriptor.usage = [.renderTarget, .shaderRead]
-
-            guard let outputTexture = self.metalDevice.makeTexture(descriptor: descriptor) else { return completion(nil) }
-
-            let renderPass = MTLRenderPassDescriptor()
-            renderPass.colorAttachments[0].texture = outputTexture
-            renderPass.colorAttachments[0].loadAction = .clear
-            renderPass.colorAttachments[0].clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 1)
-            renderPass.colorAttachments[0].storeAction = .store
-
-            guard let encoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPass) else { return completion(nil) }
-            encoder.setRenderPipelineState(self.renderPipelineState)
-            encoder.setFragmentTexture(sourceTexture, index: 0)
-            encoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
-            encoder.endEncoding()
-
-            commandBuffer.addCompletedHandler { _ in
-                completion(self.pixelBufferFromTexture(outputTexture))
-            }
-            commandBuffer.commit()
+    // Call from the capture or processing queue. The completion can run on Metal's queue.
+    func processFrame(_ pixelBuffer: CVPixelBuffer, completion: @escaping @Sendable (CVPixelBuffer?) -> Void) {
+        let slot = gpuSlot
+        guard CVPixelBufferGetPixelFormatType(pixelBuffer) == kCVPixelFormatType_32BGRA,
+              slot.wait(timeout: .now()) == .success else {
+            completion(nil)
+            return
         }
+
+        var submitted = false
+        defer { if !submitted { slot.signal() } }
+
+        guard let wrappedTexture = textureFromPixelBuffer(pixelBuffer),
+              let sourceTexture = CVMetalTextureGetTexture(wrappedTexture),
+              let commandBuffer = commandQueue.makeCommandBuffer()
+        else { completion(nil); return }
+
+        let width = CVPixelBufferGetWidth(pixelBuffer)
+        let height = CVPixelBufferGetHeight(pixelBuffer)
+
+        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: width, height: height, mipmapped: false)
+        descriptor.usage = [.renderTarget, .shaderRead]
+        descriptor.storageMode = .shared
+
+        guard let outputTexture = self.metalDevice.makeTexture(descriptor: descriptor) else { return completion(nil) }
+
+        let renderPass = MTLRenderPassDescriptor()
+        renderPass.colorAttachments[0].texture = outputTexture
+        renderPass.colorAttachments[0].loadAction = .clear
+        renderPass.colorAttachments[0].clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 1)
+        renderPass.colorAttachments[0].storeAction = .store
+
+        guard let encoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPass) else { return completion(nil) }
+        encoder.setRenderPipelineState(self.renderPipelineState)
+        encoder.setFragmentTexture(sourceTexture, index: 0)
+        encoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
+        encoder.endEncoding()
+
+        let resources = FrameResources(
+            buffer: pixelBuffer, inputTexture: wrappedTexture, outputTexture: outputTexture
+        )
+        commandBuffer.addCompletedHandler { result in
+            let buffer = withExtendedLifetime(resources) {
+                result.status == .completed
+                    ? Self.pixelBufferFromTexture(resources.outputTexture)
+                    : nil
+            }
+            slot.signal()
+            completion(buffer)
+        }
+        submitted = true
+        commandBuffer.commit()
     }
 
-    private func textureFromPixelBuffer(_ pixelBuffer: CVPixelBuffer) -> MTLTexture? {
+    private func textureFromPixelBuffer(_ pixelBuffer: CVPixelBuffer) -> CVMetalTexture? {
         guard let textureCache = textureCache else { return nil }
         var temp: CVMetalTexture?
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
         CVMetalTextureCacheCreateTextureFromImage(nil, textureCache, pixelBuffer, nil, .bgra8Unorm, width, height, 0, &temp)
-        return temp.flatMap { CVMetalTextureGetTexture($0) }
+        return temp
     }
 
-    private func pixelBufferFromTexture(_ texture: MTLTexture) -> CVPixelBuffer? {
+    private static func pixelBufferFromTexture(_ texture: MTLTexture) -> CVPixelBuffer? {
         var pixelBuffer: CVPixelBuffer?
-        CVPixelBufferCreate(nil, texture.width, texture.height, kCVPixelFormatType_32BGRA, nil, &pixelBuffer)
-        guard let buffer = pixelBuffer, let base = CVPixelBufferGetBaseAddress(buffer) else { return nil }
-
-        CVPixelBufferLockBaseAddress(buffer, .writeOnly)
+        guard CVPixelBufferCreate(nil, texture.width, texture.height, kCVPixelFormatType_32BGRA, nil, &pixelBuffer) == kCVReturnSuccess,
+              let buffer = pixelBuffer,
+              CVPixelBufferLockBaseAddress(buffer, []) == kCVReturnSuccess else { return nil }
+        defer { CVPixelBufferUnlockBaseAddress(buffer, []) }
+        guard let base = CVPixelBufferGetBaseAddress(buffer) else { return nil }
         texture.getBytes(base, bytesPerRow: CVPixelBufferGetBytesPerRow(buffer),
                          from: MTLRegionMake2D(0, 0, texture.width, texture.height), mipmapLevel: 0)
-        CVPixelBufferUnlockBaseAddress(buffer, .writeOnly)
         return buffer
     }
 }

@@ -18,9 +18,8 @@ func application(
 func urlSessionDidFinishEvents(
     forBackgroundURLSession session: URLSession
 ) {
-    Task {
-        // 3. Every observation reaches the ledger first...
-        await coordinator.drainObservations()
+    observations.enqueue {
+        // 3. Every earlier callback has reached the ledger first.
         await MainActor.run {
             // ...then the system may snapshot the new UI.
             SessionEvents.shared.completion?()

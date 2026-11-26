@@ -5,7 +5,6 @@
 // MARK: - Legacy Service (Callback-based)
 class LegacyNetworkService {
     func fetchData(completion: @escaping (Result<Data, Error>) -> Void) {
-        // Legacy implementation
+        completion(.success(Data([0x01])))  // fixture for this example
     }
 }
-Adapters bought us time. Old code stayed safe, new code shipped modern. Velocity never stopped.

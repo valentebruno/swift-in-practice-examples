@@ -2,24 +2,33 @@
 // Section: ArrangementView makes composition explicit
 // https://swiftinpractice.com/editions/14-stop-designing-for-screens/#arrangementview-makes-composition-explicit
 
+import Foundation
+import Testing
+
 @Test
 @MainActor
 func loadingReviewUpdatesObservableState() async {
-    let repository = MockReviewRepository(
-        review: .fixture
+    let review = testReview()
+    let repository = LiveReviewRepository(storage: [review.id: review])
+    let store = ReviewStore(repository: repository)
+    await store.load(id: review.id)
+    #expect(store.review?.id == review.id)
+}
+
+private func testReview() -> Review {
+    Review(
+        id: UUID(),
+        videoURL: URL(fileURLWithPath: "/tmp/review.mov"),
+        playhead: .zero,
+        notes: ""
     )
-    let store = ReviewStore(
-        repository: repository
-    )
-    await store.load(id: .fixture.id)
-    #expect(store.review?.id == .fixture.id)
 }
 
 @Test
-func repositoryPersistsReview() async throws {
-    let repository = InMemoryReviewRepository()
-    let review = Review.fixture
+func repositorySavesAndLoadsReview() async throws {
+    let repository = LiveReviewRepository()
+    let review = testReview()
     try await repository.save(review)
-    let loaded = try await repository.loadReview(id: review.id)
+    let loaded = try await repository.load(id: review.id)
     #expect(loaded == review)
 }
