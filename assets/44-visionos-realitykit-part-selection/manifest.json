@@ -1,0 +1,8 @@
+{
+  "assembly": "fixture-gearbox",
+  "revision": 1,
+  "parts": [
+    { "part": "Housing", "root": "/Assembly/Housing" },
+    { "part": "Bracket", "root": "/Assembly/Bracket" }
+  ]
+}
