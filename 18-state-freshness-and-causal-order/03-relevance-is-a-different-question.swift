@@ -35,6 +35,10 @@ final class FlightScreenModel {
             do {
                 let snapshot = try await loader.load(flightID: flightID)
                 guard token == selection else { return }
+                guard snapshot.flightID == flightID else {
+                    loadFailed = true
+                    return
+                }
                 visible = snapshot
             } catch {
                 guard token == selection else { return }

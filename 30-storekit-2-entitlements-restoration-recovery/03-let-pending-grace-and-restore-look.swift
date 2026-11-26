@@ -5,7 +5,9 @@
 func buy(_ product: Product, store: EntitlementStore) async throws -> String {
     switch try await product.purchase() {
     case .success(let verification):
-        await store.handle(verification)
+        guard await store.handle(verification) else {
+            return "We couldn’t verify access for this purchase."
+        }
         return "Purchase complete."
     case .pending:
         return "Waiting for approval. You’ll get access as soon as it’s approved."

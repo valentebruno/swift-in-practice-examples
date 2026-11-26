@@ -3,20 +3,17 @@
 // https://swiftinpractice.com/editions/12-multi-camera-capture-on-ios/#validation-before-configuration
 
 func validateDeviceCombination(
-    _ devices: [AVCaptureDevice],
-    session: AVCaptureMultiCamSession
+    _ devices: [AVCaptureDevice]
 ) -> Bool {
-    let inputs = devices.compactMap {
-        try? AVCaptureDeviceInput(device: $0)
-    }
+    guard devices.count >= 2,
+          Set(devices).count == devices.count else { return false }
 
-    // Test each input individually
-    for input in inputs {
-        guard session.canAddInput(input) else {
-            logger.error("Cannot add input: \(input.device.localizedName)")
-            return false
-        }
-    }
-
-    return true
+    // This is a device-set preflight. Configuration still checks each input
+    // and explicit connection against the session, then measures its cost.
+    let discovery = AVCaptureDevice.DiscoverySession(
+        deviceTypes: Array(Set(devices.map(\.deviceType))),
+        mediaType: .video,
+        position: .unspecified
+    )
+    return discovery.supportedMultiCamDeviceSets.contains { Set(devices).isSubset(of: $0) }
 }

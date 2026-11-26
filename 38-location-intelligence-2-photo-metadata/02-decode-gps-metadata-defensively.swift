@@ -11,9 +11,8 @@ enum GPSReading: Equatable, Sendable {
 }
 
 func gpsReading(from properties: [CFString: Any]) -> GPSReading {
-    guard let gps = properties[kCGImagePropertyGPSDictionary] as? [CFString: Any] else {
-        return .absent
-    }
+    guard let rawGPS = properties[kCGImagePropertyGPSDictionary] else { return .absent }
+    guard let gps = rawGPS as? [CFString: Any] else { return .malformed }
     guard let latitude = gps[kCGImagePropertyGPSLatitude] as? Double,
           let longitude = gps[kCGImagePropertyGPSLongitude] as? Double,
           let latitudeRef = gps[kCGImagePropertyGPSLatitudeRef] as? String,

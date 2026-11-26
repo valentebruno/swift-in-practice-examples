@@ -16,9 +16,15 @@ struct AssemblyManifest: Decodable, Sendable {
 
 extension Entity {
     func descendant(atPath path: String) -> Entity? {
-        var current: Entity? = self
-        for name in path.split(separator: "/") {
-            current = current?.children.first { $0.name == name }
+        let components = path.split(separator: "/")
+        guard !components.isEmpty else { return nil }
+
+        var current = self
+        for name in components {
+            guard let child = current.children.first(where: { $0.name == name }) else {
+                return nil
+            }
+            current = child
         }
         return current
     }

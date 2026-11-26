@@ -7,7 +7,7 @@ enum Connection: Sendable { case online, offline }
 struct CachePolicyCase: Sendable, CustomTestStringConvertible {
     let connection: Connection
     let cached: [String]?
-    let expected: [String]?        // nil means an error
+    let expected: [String]?        // nil means offline with no cache
 
     var testDescription: String {
         "\(connection), cache \(cached == nil ? "empty" : "present")"
@@ -27,6 +27,6 @@ func cachePolicy(_ row: CachePolicyCase) async throws {
     if let expected = row.expected {
         #expect(try await loader.load() == expected)
     } else {
-        await #expect(throws: URLError.self) { try await loader.load() }
+        await #expect(throws: URLError(.notConnectedToInternet)) { try await loader.load() }
     }
 }

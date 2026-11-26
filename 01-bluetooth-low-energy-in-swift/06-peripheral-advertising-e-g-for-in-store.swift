@@ -7,7 +7,6 @@ import CoreBluetooth
 
 class BLEPeripheralController: NSObject, CBPeripheralManagerDelegate {
     private var peripheralManager: CBPeripheralManager!
-    private var transferCharacteristic: CBMutableCharacteristic!
 
     override init() {
         super.init()
@@ -24,21 +23,23 @@ class BLEPeripheralController: NSObject, CBPeripheralManagerDelegate {
         let serviceUUID = CBUUID(string: "1234")
         let characteristicUUID = CBUUID(string: "ABCD")
 
-        transferCharacteristic = CBMutableCharacteristic(
+        let characteristic = CBMutableCharacteristic(
             type: characteristicUUID,
-            properties: [.read, .write],
-            value: nil,
-            permissions: [.readable, .writeable]
+            properties: [.read],
+            value: Data("Exhibit 42".utf8),
+            permissions: [.readable]
         )
 
         let service = CBMutableService(type: serviceUUID, primary: true)
-        service.characteristics = [transferCharacteristic]
+        service.characteristics = [characteristic]
         peripheralManager.add(service)
+    }
 
-        // Advertise with a local name and service UUIDs
-        peripheralManager.startAdvertising([
-            CBAdvertisementDataLocalNameKey: "PromoBeacon",
-            CBAdvertisementDataServiceUUIDsKey: [serviceUUID]
+    func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
+        guard error == nil, peripheral.state == .poweredOn else { return }
+        peripheral.startAdvertising([
+            CBAdvertisementDataLocalNameKey: "MuseumExhibit",
+            CBAdvertisementDataServiceUUIDsKey: [service.uuid]
         ])
     }
 }

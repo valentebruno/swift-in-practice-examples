@@ -8,13 +8,23 @@ final class HomeCoordinator: ObservableObject {
     private let analytics: AnalyticsService
     private let featureFlags: FeatureFlagService
 
+    enum HomeDestination: Hashable {
+        case productDetail(String)
+        case productDetailV2(String)
+    }
+
+    init(analytics: AnalyticsService, featureFlags: FeatureFlagService) {
+        self.analytics = analytics
+        self.featureFlags = featureFlags
+    }
+
     func navigateToProductDetail(_ product: Product) {
         analytics.track(.productViewed(product.id))
 
         if featureFlags.isEnabled(.newProductDetailUI) {
-            path.append(.productDetailV2(product))
+            path.append(HomeDestination.productDetailV2(String(describing: product.id)))
         } else {
-            path.append(.productDetail(product))
+            path.append(HomeDestination.productDetail(String(describing: product.id)))
         }
     }
 }

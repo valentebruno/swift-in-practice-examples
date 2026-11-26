@@ -2,12 +2,17 @@
 // Section: Configure the encoder for the requirement
 // https://swiftinpractice.com/editions/41-live-streaming-beyond-avfoundation/#configure-the-encoder-for-the-requirement
 
+struct EncoderConfigurationError: Error {
+    let property: String
+    let status: OSStatus
+}
+
 func configureForLowLatency(
     _ session: VTCompressionSession,
     bitsPerSecond: Int,
     framesPerSecond: Int,
     keyframeIntervalSeconds: Int
-) -> Bool {
+) throws {
     let settings: [(CFString, CFTypeRef)] = [
         (kVTCompressionPropertyKey_RealTime, kCFBooleanTrue),
         (kVTCompressionPropertyKey_AllowFrameReordering, kCFBooleanFalse),
@@ -16,8 +21,11 @@ func configureForLowLatency(
         (kVTCompressionPropertyKey_MaxKeyFrameIntervalDuration,
          keyframeIntervalSeconds as CFNumber)
     ]
-    return settings.allSatisfy { key, value in
-        VTSessionSetProperty(session, key: key, value: value) == noErr
+    for (key, value) in settings {
+        let status = VTSessionSetProperty(session, key: key, value: value)
+        guard status == noErr else {
+            throw EncoderConfigurationError(property: key as String, status: status)
+        }
     }
 }
 

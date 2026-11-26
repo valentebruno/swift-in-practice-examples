@@ -1,7 +1,8 @@
 #EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-TARGETDURATION:10
-#EXT-X-MEDIA-SEQUENCE:1000   # Old segments removed from this point
+# Old segments have been removed before this media sequence.
+#EXT-X-MEDIA-SEQUENCE:1000
 #EXTINF:10.0,
 segment-1000.ts
 #EXTINF:10.0,

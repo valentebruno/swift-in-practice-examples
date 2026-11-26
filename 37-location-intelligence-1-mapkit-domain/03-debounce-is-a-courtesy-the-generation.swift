@@ -9,6 +9,7 @@ struct PlaceSearchField: View {
 
     var body: some View {
         TextField("Search places", text: $text)
+            .onChange(of: text) { _, _ in model.cancel() }
             .task(id: text) {
                 do {
                     try await Task.sleep(for: .milliseconds(300))

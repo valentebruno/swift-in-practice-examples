@@ -18,6 +18,7 @@ final class EntitlementStore {
     private(set) var access: Access = .checking
     private let productIDs: Set<String>
     private var updates: Task<Void, Never>?
+    private var refreshGeneration = 0
 
     init(productIDs: Set<String>) {
         self.productIDs = productIDs
@@ -27,22 +28,25 @@ final class EntitlementStore {
         guard updates == nil else { return }
         updates = Task { [weak self] in
             for await result in Transaction.updates {
-                await self?.handle(result)
+                _ = await self?.handle(result)
             }
         }
         Task {
             for await result in Transaction.unfinished {
-                await handle(result)
+                _ = await handle(result)
             }
             await refresh()
         }
     }
 
     func refresh() async {
+        refreshGeneration += 1
+        let generation = refreshGeneration
         var best: Access = .notSubscribed
         var latestExpiry = Date.distantPast
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result,
+                  transaction.productType == .autoRenewable,
                   productIDs.contains(transaction.productID),
                   transaction.revocationDate == nil else { continue }
             let expiry = transaction.expirationDate ?? .distantFuture   // nil: never expires
@@ -51,14 +55,18 @@ final class EntitlementStore {
             let inGrace = transaction.expirationDate.map { $0 < .now } ?? false
             best = .subscribed(expires: transaction.expirationDate, inGrace: inGrace)
         }
+        guard generation == refreshGeneration else { return }
         access = best
     }
 
-    func handle(_ result: VerificationResult<Transaction>) async {
-        guard case .verified(let transaction) = result else {
-            return          // never grant from unverified evidence; log and move on
+    func handle(_ result: VerificationResult<Transaction>) async -> Bool {
+        guard case .verified(let transaction) = result,
+              transaction.productType == .autoRenewable,
+              productIDs.contains(transaction.productID) else {
+            return false
         }
         await refresh()
         await transaction.finish()
+        return true
     }
 }

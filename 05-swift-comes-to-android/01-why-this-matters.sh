@@ -2,14 +2,15 @@
 # Section: Why this matters
 # https://swiftinpractice.com/editions/5-swift-comes-to-android/#why-this-matters
 
-# Install the toolchain manager
-curl -L https://swift-server.github.io/swiftly/swiftly-install.sh | bash
-
-# Install a matching Swift snapshot
-swiftly install main-snapshot-2025-10-16
-
-# Install the Android SDK bundle
-swift sdk install https://download.swift.org/.../swift-android-sdk.tar.gz
+# Install a stable toolchain with Swiftly.
+# Set these variables from Swift.org's Android SDK setup guide.
+: "${SWIFT_RELEASE:?Swift release version}"
+: "${SWIFT_ANDROID_SDK_URL:?matching Android SDK bundle URL}"
+: "${SWIFT_ANDROID_SDK_CHECKSUM:?SDK checksum from Swift.org}"
+swiftly install "$SWIFT_RELEASE"
+swiftly use "$SWIFT_RELEASE"
+swift sdk install "$SWIFT_ANDROID_SDK_URL" --checksum "$SWIFT_ANDROID_SDK_CHECKSUM"
+swift sdk list
 
 # Create your package
 swift package init --type executable

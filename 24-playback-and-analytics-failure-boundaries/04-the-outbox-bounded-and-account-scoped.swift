@@ -8,7 +8,8 @@ enum DeliveryOutcome: Sendable {
     case rejected
 }
 
-actor EventOutbox: EventRecording {
+@MainActor
+final class EventOutbox: EventRecording {
     private var pending: [PlaybackEvent] = []
     private var attempts: [UUID: Int] = [:]
     private(set) var droppedCount = 0
@@ -17,11 +18,12 @@ actor EventOutbox: EventRecording {
     private let maximumAttempts: Int
 
     init(capacity: Int, maximumAttempts: Int) {
+        precondition(capacity > 0 && maximumAttempts > 0)
         self.capacity = capacity
         self.maximumAttempts = maximumAttempts
     }
 
-    func record(_ event: PlaybackEvent) {
+    func enqueue(_ event: PlaybackEvent) {
         guard !pending.contains(where: { $0.id == event.id }) else { return }
         if pending.count >= capacity {
             let evicted = pending.removeFirst()
@@ -32,10 +34,12 @@ actor EventOutbox: EventRecording {
     }
 
     func batch(for accountID: UUID, limit: Int) -> [PlaybackEvent] {
-        Array(pending.lazy.filter { $0.accountID == accountID }.prefix(limit))
+        guard limit > 0 else { return [] }
+        return Array(pending.lazy.filter { $0.accountID == accountID }.prefix(limit))
     }
 
     func resolve(_ eventID: UUID, as outcome: DeliveryOutcome) {
+        guard pending.contains(where: { $0.id == eventID }) else { return }
         switch outcome {
         case .acknowledged:
             remove(eventID)

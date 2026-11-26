@@ -33,7 +33,9 @@ func merge(_ a: ItemState, _ b: ItemState) -> MergeOutcome {
     case (nil, nil):
         break
     }
-    guard a.name != b.name || a.quantity != b.quantity else { return .merged(a) }
+    guard a.name != b.name || a.quantity != b.quantity else {
+        return .merged(a.editedAt >= b.editedAt ? a : b)
+    }
     if a.editedAt == b.editedAt { return .conflict(a, b) }
     return .merged(a.editedAt > b.editedAt ? a : b)
 }

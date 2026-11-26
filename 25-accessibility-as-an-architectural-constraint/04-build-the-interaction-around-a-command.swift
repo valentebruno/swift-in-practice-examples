@@ -12,12 +12,15 @@ struct Dashboard: View {
         }
         .focusedSceneValue(
             \.markSelectedOrderCollected,
-            selection.map { id in { markCollected(id) } }
+            selection.flatMap { id in
+                orders.contains(where: { $0.id == id }) ? { markCollected(id) } : nil
+            }
         )
     }
 
     private func markCollected(_ id: Order.ID) {
         guard let index = orders.firstIndex(where: { $0.id == id }) else { return }
         orders.remove(at: index)       // stands in for the real command
+        if selection == id { selection = nil }
     }
 }

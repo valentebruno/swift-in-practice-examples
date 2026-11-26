@@ -16,13 +16,24 @@ struct ArrivalDetector: Sendable {
     private var streak = 0
 
     init(enterRadius: Double, exitRadius: Double, requiredSamples: Int) {
-        precondition(exitRadius > enterRadius && requiredSamples > 0)
+        precondition(
+            enterRadius.isFinite && enterRadius >= 0
+                && exitRadius.isFinite && exitRadius > enterRadius
+                && requiredSamples > 0
+        )
         self.enterRadius = enterRadius
         self.exitRadius = exitRadius
         self.requiredSamples = requiredSamples
     }
 
     mutating func ingest(distance: Double, accuracy: Double) -> State {
+        guard distance.isFinite, distance >= 0,
+              accuracy.isFinite, accuracy >= 0 else {
+            candidate = nil
+            streak = 0
+            return state
+        }
+
         let evidence: State?
         if distance + accuracy <= enterRadius {
             evidence = .arrived

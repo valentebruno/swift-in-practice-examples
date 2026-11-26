@@ -17,6 +17,7 @@ struct SafeAreaProbe: ViewModifier {
                 .background(.yellow.opacity(0.85))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .allowsHitTesting(false)
+                .accessibilityHidden(true)
             }
         }
     }
