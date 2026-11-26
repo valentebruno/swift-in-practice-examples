@@ -5,7 +5,7 @@
 import RealityKit
 import SwiftUI
 
-enum AssemblyPart: String, CaseIterable, Identifiable, Sendable {
+enum AssemblyPart: String, CaseIterable, Identifiable, Sendable, Decodable {
     case housing = "Housing"
     case bracket = "Bracket"
 

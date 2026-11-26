@@ -50,7 +50,7 @@ back to the full edition. Read the edition for the context — the trade-offs ma
 | #41 | [Where Your Live Stream Falls Behind](41-live-streaming-beyond-avfoundation/) | Media & Camera | 5 | [Read](https://swiftinpractice.com/editions/41-live-streaming-beyond-avfoundation/) |
 | #42 | [Restoring Focus After Playback on tvOS](42-tvos-focus-after-playback/) | Platforms & Devices | 1 | [Read](https://swiftinpractice.com/editions/42-tvos-focus-after-playback/) |
 | #43 | [When Is an Offline Map Ready on Apple Watch?](43-watchos-offline-map-packs/) | Platforms & Devices | 2 | [Read](https://swiftinpractice.com/editions/43-watchos-offline-map-packs/) |
-| #44 | [Selecting 3D Parts Reliably on visionOS](44-visionos-realitykit-part-selection/) | visionOS | 2 | [Read](https://swiftinpractice.com/editions/44-visionos-realitykit-part-selection/) |
+| #44 | [Selecting 3D Parts Reliably on visionOS](44-visionos-realitykit-part-selection/) | visionOS | 4 | [Read](https://swiftinpractice.com/editions/44-visionos-realitykit-part-selection/) |
 
 ## Stay in the loop
 
