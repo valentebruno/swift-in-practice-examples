@@ -1,0 +1,14 @@
+Expected:
+After selecting workspace B, visible articles belong to B.
+
+Observed:
+The title shows B, but five article IDs belong to A.
+
+Known sequence (run 3, from logs):
+1. Request A started.
+2. Workspace changed to B.
+3. Request B completed and rendered.
+4. Request A completed and rendered.
+
+Not yet established:
+Whether the repository or the presentation layer accepted A.

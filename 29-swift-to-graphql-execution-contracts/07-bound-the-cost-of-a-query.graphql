@@ -1,0 +1,13 @@
+query {
+  projects(first: 50) {
+    nodes {
+      articles(first: 100) {
+        nodes {
+          comments(first: 100) {
+            nodes { id }
+          }
+        }
+      }
+    }
+  }
+}

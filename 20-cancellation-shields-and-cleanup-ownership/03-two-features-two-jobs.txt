@@ -1,0 +1,3 @@
+in shield: isCancelled=false
+released
+after shield: isCancelled=true

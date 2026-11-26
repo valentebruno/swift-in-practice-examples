@@ -1,0 +1,10 @@
+type Article {
+  id: ID!
+  title: String!
+  author: Author
+}
+
+type Author {
+  id: ID!
+  displayName: String!
+}

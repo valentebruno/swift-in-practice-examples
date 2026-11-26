@@ -1,0 +1,15 @@
+Confirmed:
+Repository returns correctly scoped snapshots (run 7, log line at
+repository output shows only A-IDs for request A).
+Presentation applies a completion without checking selection generation.
+
+Eliminated:
+Cache mixing: purging the cache did not change reproduction (runs 4-5).
+Server payload: response for B contains only B-IDs (run 7).
+
+Next experiment:
+Add generation comparison where the response is applied.
+Run the B-then-A controlled test before any live networking.
+
+Environment:
+Commit, build number, device and OS as recorded in run-7 metadata.

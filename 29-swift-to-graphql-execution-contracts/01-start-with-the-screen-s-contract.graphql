@@ -1,0 +1,19 @@
+query ReadingList($first: Int!, $after: String) {
+  articles(first: $first, after: $after) {
+    edges {
+      cursor
+      node {
+        id
+        title
+        author {
+          id
+          displayName
+        }
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "data": {
+    "articles": {
+      "edges": [
+        { "node": { "id": "a1", "title": "Actors in practice", "author": { "displayName": "Dana" } } },
+        { "node": { "id": "a2", "title": "Keyset pagination", "author": null } }
+      ]
+    }
+  },
+  "errors": [
+    { "message": "Author service timed out",
+      "path": ["articles", "edges", 1, "node", "author"] }
+  ]
+}

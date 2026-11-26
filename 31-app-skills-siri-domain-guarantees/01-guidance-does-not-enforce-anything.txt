@@ -1,0 +1,5 @@
+When the customer asks to place an order:
+- Prepare an order proposal first.
+- Tell the customer the delivery address and the total price.
+- Ask for confirmation before placing the order.
+- If the price changed since it was shown, show the new price and ask again.
